@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="base-demo-01-common" />
+        <module name="base-demo-01-fount" />
+        <module name="base-demo-01-middle" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="base-demo" target="1.8" />
+      <module name="base-demo-01-common" target="1.8" />
+      <module name="base-demo-01-fount" target="1.8" />
+      <module name="base-demo-01-middle" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base-demo" options="" />
+      <module name="base-demo-01-common" options="" />
+      <module name="base-demo-01-fount" options="" />
+      <module name="base-demo-01-middle" options="" />
+    </option>
+  </component>
+</project>

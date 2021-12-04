@@ -11,9 +11,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>base-demo-01-fount</module>
-        <module>base-demo-01-middle</module>
-        <module>base-demo-01-common</module>
+        <module>base-demo-01-login</module>
+        <module>base-demo-01-login-common</module>
     </modules>
 
     <!--统一管理jar包版本-->

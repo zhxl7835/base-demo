@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/base-demo.iml" filepath="$PROJECT_DIR$/base-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base-demo-01-common/base-demo-01-common.iml" filepath="$PROJECT_DIR$/base-demo-01-common/base-demo-01-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base-demo-01-fount/base-demo-01-fount.iml" filepath="$PROJECT_DIR$/base-demo-01-fount/base-demo-01-fount.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base-demo-01-middle/base-demo-01-middle.iml" filepath="$PROJECT_DIR$/base-demo-01-middle/base-demo-01-middle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-demo-01-login/base-demo-01-login.iml" filepath="$PROJECT_DIR$/base-demo-01-login/base-demo-01-login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-demo-01-login-common/base-demo-01-login-common.iml" filepath="$PROJECT_DIR$/base-demo-01-login-common/base-demo-01-login-common.iml" />
     </modules>
   </component>
 </project>

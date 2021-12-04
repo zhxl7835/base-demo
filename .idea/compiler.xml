@@ -7,16 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="base-demo-01-common" />
-        <module name="base-demo-01-fount" />
-        <module name="base-demo-01-middle" />
+        <module name="base-demo-01-login-common" />
+        <module name="base-demo-01-login" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="base-demo" target="1.8" />
       <module name="base-demo-01-common" target="1.8" />
       <module name="base-demo-01-fount" target="1.8" />
+      <module name="base-demo-01-login" target="1.8" />
+      <module name="base-demo-01-login-common" target="1.8" />
       <module name="base-demo-01-middle" target="1.8" />
+      <module name="base-demo-01-xtgl" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -24,7 +26,10 @@
       <module name="base-demo" options="" />
       <module name="base-demo-01-common" options="" />
       <module name="base-demo-01-fount" options="" />
+      <module name="base-demo-01-login" options="" />
+      <module name="base-demo-01-login-common" options="" />
       <module name="base-demo-01-middle" options="" />
+      <module name="base-demo-01-xtgl" options="" />
     </option>
   </component>
 </project>

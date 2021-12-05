@@ -77,6 +77,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+        String password = httpServletRequest.getHeader("password");
         // 如果不是映射到方法直接通过
         if(!(object instanceof HandlerMethod)){
             return true;
@@ -112,7 +113,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             throw new RuntimeException("用户不存在，请重新登录");
         }
         // 验证 token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(tbUser.getPassword())).build();
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(password)).build();
         try {
             DecodedJWT jwt = jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {

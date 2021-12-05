@@ -6,6 +6,8 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/base-demo-01-login/pom.xml" />
         <option value="$PROJECT_DIR$/base-demo-01-login-common/pom.xml" />
+        <option value="$PROJECT_DIR$/base-demo-02-xtgl/pom.xml" />
+        <option value="$PROJECT_DIR$/base-demo-02-xtgl-common/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

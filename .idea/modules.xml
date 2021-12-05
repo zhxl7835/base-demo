@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/base-demo.iml" filepath="$PROJECT_DIR$/base-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-demo-01-login/base-demo-01-login.iml" filepath="$PROJECT_DIR$/base-demo-01-login/base-demo-01-login.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-demo-01-login-common/base-demo-01-login-common.iml" filepath="$PROJECT_DIR$/base-demo-01-login-common/base-demo-01-login-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-demo-02-xtgl/base-demo-02-xtgl.iml" filepath="$PROJECT_DIR$/base-demo-02-xtgl/base-demo-02-xtgl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-demo-02-xtgl-common/base-demo-02-xtgl-common.iml" filepath="$PROJECT_DIR$/base-demo-02-xtgl-common/base-demo-02-xtgl-common.iml" />
     </modules>
   </component>
 </project>

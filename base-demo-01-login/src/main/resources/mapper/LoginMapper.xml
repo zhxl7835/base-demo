@@ -13,7 +13,7 @@
     <resultMap id="TbPowersResultMap" type="com.basedemo01.login.common.basedemo01logincommon.vo.login.TbPowers">
         <result column="userid" property="userid" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="menuid" property="menuid" jdbcType="VARCHAR"/>
+        <result column="menuid" property="menuid" jdbcType="INTEGER"/>
     </resultMap>
 
     <select id="loginCheck" resultMap="TbUserVOResultMap" parameterType="java.lang.String">

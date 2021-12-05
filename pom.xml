@@ -13,6 +13,8 @@
     <modules>
         <module>base-demo-01-login</module>
         <module>base-demo-01-login-common</module>
+        <module>base-demo-02-xtgl</module>
+        <module>base-demo-02-xtgl-common</module>
     </modules>
 
     <!--统一管理jar包版本-->

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.basedemo02xtgl.basedemo02xtgl.dao.QxglMapper">
+    <resultMap id="TbUserResultMap" type="com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbUser">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="xm" property="xm" jdbcType="VARCHAR"/>
+        <result column="sfzh" property="sfzh" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="role" property="role" jdbcType="INTEGER"/>
+        <result column="delflag" property="delflag" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="TbPowersResultMap" type="com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbPowers">
+        <result column="userid" property="userid" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="menuid" property="menuid" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="queryUsers" resultMap="TbUserResultMap" parameterType="java.lang.String">
+        select id as id,
+            username as username,
+            password as password,
+            xm as xm,
+            sfzh as sfzh,
+            email as email,
+            role as role
+        from tb_user
+        where delflag='0'
+    </select>
+    <select id="getAccess" resultMap="TbPowersResultMap" parameterType="java.lang.String">
+        select userid as userid,
+               username as username,
+               menuid as menuid
+        from tb_powers
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+</mapper>

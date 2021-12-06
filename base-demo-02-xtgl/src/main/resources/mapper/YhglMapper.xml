@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.basedemo02xtgl.basedemo02xtgl.dao.YhglMapper">
+    <resultMap id="TbUserResultMap" type="com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbUser">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="xm" property="xm" jdbcType="VARCHAR"/>
+        <result column="sfzh" property="sfzh" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="role" property="role" jdbcType="INTEGER"/>
+        <result column="delflag" property="delflag" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="queryUsers" resultMap="TbUserResultMap" parameterType="java.lang.String">
+        select id as id,
+        username as username,
+        password as password,
+        xm as xm,
+        sfzh as sfzh,
+        email as email,
+        role as role
+        from tb_user
+        where delflag='0'
+        <if test="username !='' and username != null">
+            and username = #{username,jdbcType=VARCHAR}
+        </if>
+    </select>
 
+    <insert id="insertUsers">
+        INSERT INTO tb_user(id, username, password, xm, sfzh, email, role, delflag)
+        VALUES (#{tbUser.id,jdbcType=VARCHAR}, #{tbUser.username,jdbcType=VARCHAR},
+                #{tbUser.password,jdbcType=VARCHAR}, #{tbUser.xm,jdbcType=VARCHAR},
+                #{tbUser.sfzh,jdbcType=VARCHAR}, #{tbUser.email,jdbcType=VARCHAR},
+                #{tbUser.role,jdbcType=VARCHAR}, '0')
+    </insert>
+
+    <update id="deleteUsers" parameterType="com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbUser">
+        update tb_user
+        set delflag ='1'
+        where id = #{tbUser.id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteAllUsers">
+        update tb_user
+        set delflag ='1'
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id,jdbcType=CHAR}
+        </foreach>
+    </update>
+
+    <update id="updateUsers" parameterType="com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbUser">
+        update tb_user
+        set username =#{tbUser.username,jdbcType=VARCHAR},
+            xm       =#{tbUser.xm,jdbcType=VARCHAR},
+            sfzh     =#{tbUser.sfzh,jdbcType=VARCHAR},
+            email    =#{tbUser.email,jdbcType=VARCHAR},
+            role     =#{tbUser.role,jdbcType=VARCHAR}
+        where id = #{tbUser.id,jdbcType=VARCHAR}
+    </update>
 </mapper>

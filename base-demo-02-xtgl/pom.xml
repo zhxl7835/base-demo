@@ -81,6 +81,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>3.4.0</version>
@@ -92,14 +100,14 @@
             <version>1.2.47</version>
         </dependency>
         <dependency>
-            <groupId>com.basedemo01.login.common</groupId>
-            <artifactId>base-demo-01-login-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.basedemo02xtgl.common</groupId>
+            <artifactId>base-demo-02-xtgl-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

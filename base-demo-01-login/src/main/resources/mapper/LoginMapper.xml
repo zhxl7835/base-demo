@@ -8,6 +8,7 @@
         <result column="xm" property="xm" jdbcType="VARCHAR"/>
         <result column="sfzh" property="sfzh" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="role" property="role" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="TbPowersResultMap" type="com.basedemo01.login.common.basedemo01logincommon.vo.login.TbPowers">
@@ -22,7 +23,8 @@
                password as password,
                xm       as xm,
                sfzh     as sfzh,
-               email    as email
+               email    as email,
+               role     as role
         from tb_user
         where username = #{username,jdbcType=VARCHAR}
     </select>
@@ -32,7 +34,8 @@
                password as password,
                xm       as xm,
                sfzh     as sfzh,
-               email    as email
+               email    as email,
+               role     as role
         from tb_user
         where id = #{id,jdbcType=VARCHAR}
     </select>

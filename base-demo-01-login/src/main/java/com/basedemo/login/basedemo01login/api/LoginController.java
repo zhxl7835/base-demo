@@ -68,17 +68,17 @@ public class LoginController {
         TbUser userInfo = loginService.findUserById(userid);
         //获取用户权限
         List<TbPowers> list = loginService.getPowers(userInfo.getId(),userInfo.getUsername());
-        int[] roles = null;
+        int[] access = null;
         if(list.size() == 0){
-            roles = new int[1];
-            roles[0] = 0; //0为没有配权限的用户，只可以访问没有配roleId的菜单
+            access = new int[1];
+            access[0] = 0; //0为没有配权限的用户，只可以访问没有配roleId的菜单
         }else{
-            roles = new int[list.size()];
+            access = new int[list.size()];
         }
         for(int i = 0;i<list.size();i++){
-            roles[i] = list.get(i).getMenuid();
+            access[i] = list.get(i).getMenuid();
         }
-        userInfo.setRoles(roles);
+        userInfo.setAccess(access);
         resultCadData.setCode(200);
         resultCadData.setMsg("成功");
         resultCadData.setData(userInfo);

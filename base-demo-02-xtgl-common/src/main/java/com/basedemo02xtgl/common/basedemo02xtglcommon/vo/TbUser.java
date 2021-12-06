@@ -1,4 +1,4 @@
-package com.basedemo01.login.common.basedemo01logincommon.vo.login;
+package com.basedemo02xtgl.common.basedemo02xtglcommon.vo;
 
 import lombok.Data;
 
@@ -13,5 +13,5 @@ public class TbUser implements Serializable {
     private String sfzh;
     private String email;
     private String role;
-    private int[] access;
+    private String delflag;
 }

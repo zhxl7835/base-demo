@@ -35,7 +35,7 @@
       <module name="base-demo-01-middle" options="" />
       <module name="base-demo-01-xtgl" options="" />
       <module name="base-demo-02-xtgl" options="" />
-      <module name="base-demo-02-xtgl-common" options="-parameters" />
+      <module name="base-demo-02-xtgl-common" options="" />
     </option>
   </component>
 </project>

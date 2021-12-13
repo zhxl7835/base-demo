@@ -14,24 +14,42 @@
     <resultMap id="TbPowersResultMap" type="com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbPowers">
         <result column="userid" property="userid" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="menuid" property="menuid" jdbcType="INTEGER"/>
+        <result column="menuid" property="menuid" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="queryUsers" resultMap="TbUserResultMap" parameterType="java.lang.String">
-        select id as id,
-            username as username,
-            password as password,
-            xm as xm,
-            sfzh as sfzh,
-            email as email,
-            role as role
+        select id       as id,
+               username as username,
+               password as password,
+               xm       as xm,
+               sfzh     as sfzh,
+               email    as email,
+               role     as role
         from tb_user
-        where delflag='0'
+        where delflag = '0'
     </select>
     <select id="getAccess" resultMap="TbPowersResultMap" parameterType="java.lang.String">
-        select userid as userid,
+        select userid   as userid,
                username as username,
-               menuid as menuid
+               menuid   as menuid
         from tb_powers
         where username = #{username,jdbcType=VARCHAR}
     </select>
+
+    <delete id="deleteAllByUsername" parameterType="java.lang.String">
+        delete
+        from tb_powers
+        where username = #{username,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insertAllByMenuId">
+        INSERT INTO tb_powers(userid, username,menuid)
+        VALUES
+        <foreach collection="menuData1List" item="menuData1" separator=",">
+        (
+            #{menuData1.userid,jdbcType=VARCHAR},
+            #{menuData1.username,jdbcType=VARCHAR},
+            #{menuData1.menuid,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
 </mapper>

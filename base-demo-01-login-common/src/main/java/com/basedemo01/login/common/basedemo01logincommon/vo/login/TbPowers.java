@@ -15,5 +15,5 @@ import java.io.Serializable;
 public class TbPowers implements Serializable {
     private String userid;
     private String username;
-    private int menuid;
+    private String menuid;
 }

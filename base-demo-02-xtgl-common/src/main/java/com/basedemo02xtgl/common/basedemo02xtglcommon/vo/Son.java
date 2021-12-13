@@ -15,4 +15,5 @@ import java.io.Serializable;
 public class Son implements Serializable {
     private String title;
     private String username;
+    private String userid;
 }

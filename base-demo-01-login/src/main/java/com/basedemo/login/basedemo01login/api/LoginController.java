@@ -30,50 +30,60 @@ public class LoginController {
     public ResultCadData login(@RequestBody TbUser user, HttpServletResponse response) {
         ResultCadData<Map> resultCadData = new ResultCadData();
         Map<String,Object> map = new HashMap<String,Object>();
-        TbUser userInfo = loginService.loginCheck(user.getUsername());
-        if(userInfo == null){
+        TbUser userInfo = null;
+        try {
+            userInfo = loginService.loginCheck(user.getUsername());
+            if(userInfo == null){
+                resultCadData.setCode(500);
+                resultCadData.setMsg("登录失败,帐户不存在");
+                map.put("token",null);
+                resultCadData.setData(map);
+                return resultCadData;
+            }
+
+            if (!userInfo.getPassword().equals(user.getPassword())) {
+                resultCadData.setCode(500);
+                resultCadData.setMsg("登录失败,密码错误");
+                map.put("token",null);
+                resultCadData.setData(map);
+                return resultCadData;
+            } else {
+                //登录成功
+                //获取token
+                String token = tokenService.getToken(userInfo);
+                /*Cookie cookie = new Cookie("token", token);
+                cookie.setPath("/");
+                response.addCookie(cookie);*/
+                //获取用户权限
+                resultCadData.setCode(200);
+                resultCadData.setMsg("登录成功");
+                map.put("token",token);
+                resultCadData.setData(map);
+                return resultCadData;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             resultCadData.setCode(500);
-            resultCadData.setMsg("登录失败,帐户不存在");
+            resultCadData.setMsg("系统异常，请与管理员联系");
             map.put("token",null);
-            resultCadData.setData(map);
-            return resultCadData;
-        }
-        if (!userInfo.getPassword().equals(user.getPassword())) {
-            resultCadData.setCode(500);
-            resultCadData.setMsg("登录失败,密码错误");
-            map.put("token",null);
-            resultCadData.setData(map);
-            return resultCadData;
-        } else {
-            //登录成功
-            //获取token
-            String token = tokenService.getToken(userInfo);
-            /*Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/");
-            response.addCookie(cookie);*/
-            //获取用户权限
-            resultCadData.setCode(200);
-            resultCadData.setMsg("登录成功");
-            map.put("token",token);
             resultCadData.setData(map);
             return resultCadData;
         }
     }
 
     @GetMapping("get_info")
-    public ResultCadData get_info(@RequestParam String token) {
+    public ResultCadData get_info() {
         ResultCadData<TbUser> resultCadData = new ResultCadData();
         //获取用户信息
-        String userid = TokenUtil.getTokenUserId(token);
-        TbUser userInfo = loginService.findUserById(userid);
+        TbUser userInfo = loginService.findUserById(TokenUtil.getTokenUserId());
         //获取用户权限
         List<TbPowers> list = loginService.getPowers(userInfo.getId(),userInfo.getUsername());
-        int[] access = null;
+        String[] access = null;
         if(list.size() == 0){
-            access = new int[1];
-            access[0] = 0; //0为没有配权限的用户，只可以访问没有配roleId的菜单
+            access = new String[1];
+            access[0] = ""; //0为没有配权限的用户，只可以访问没有配roleId的菜单
         }else{
-            access = new int[list.size()];
+            access = new String[list.size()];
         }
         for(int i = 0;i<list.size();i++){
             access[i] = list.get(i).getMenuid();

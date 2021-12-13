@@ -15,6 +15,8 @@
         <module>base-demo-01-login-common</module>
         <module>base-demo-02-xtgl</module>
         <module>base-demo-02-xtgl-common</module>
+        <module>base-demo-03-security</module>
+        <module>base-demo-03-security-common</module>
     </modules>
 
     <!--统一管理jar包版本-->

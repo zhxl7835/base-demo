@@ -8,6 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="base-demo-01-login-common" />
+        <module name="base-demo-03-security" />
+        <module name="base-demo-03-security-common" />
         <module name="base-demo-01-login" />
         <module name="base-demo-02-xtgl" />
         <module name="base-demo-02-xtgl-common" />
@@ -23,6 +25,8 @@
       <module name="base-demo-01-xtgl" target="1.8" />
       <module name="base-demo-02-xtgl" target="1.8" />
       <module name="base-demo-02-xtgl-common" target="1.8" />
+      <module name="base-demo-03-security" target="1.8" />
+      <module name="base-demo-03-security-common" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -36,6 +40,8 @@
       <module name="base-demo-01-xtgl" options="" />
       <module name="base-demo-02-xtgl" options="" />
       <module name="base-demo-02-xtgl-common" options="" />
+      <module name="base-demo-03-security" options="" />
+      <module name="base-demo-03-security-common" options="" />
     </option>
   </component>
 </project>

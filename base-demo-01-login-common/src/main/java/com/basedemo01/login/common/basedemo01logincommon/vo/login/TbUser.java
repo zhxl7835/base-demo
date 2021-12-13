@@ -13,5 +13,5 @@ public class TbUser implements Serializable {
     private String sfzh;
     private String email;
     private String role;
-    private int[] access;
+    private String[] access;
 }

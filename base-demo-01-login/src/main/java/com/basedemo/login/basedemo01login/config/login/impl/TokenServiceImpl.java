@@ -2,6 +2,8 @@ package com.basedemo.login.basedemo01login.config.login.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.basedemo.login.basedemo01login.config.login.TokenUtil;
+import com.basedemo.login.basedemo01login.constants.ApiConstants;
 import com.basedemo01.login.common.basedemo01logincommon.vo.login.TbUser;
 import com.basedemo.login.basedemo01login.config.login.TokenService;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,10 @@ public class TokenServiceImpl implements TokenService {
         Date end = new Date(currentTime);
         String token = "";
 
+        /*token = JWT.create().withAudience(user.getId()).withIssuedAt(start).withExpiresAt(end)
+                .sign(Algorithm.HMAC256(user.getPassword()));*/
         token = JWT.create().withAudience(user.getId()).withIssuedAt(start).withExpiresAt(end)
-                .sign(Algorithm.HMAC256(user.getPassword()));
-
+                .sign(Algorithm.HMAC256(ApiConstants.KEY));
         System.out.println("登录请求，生成token="+token);
         return token;
     }

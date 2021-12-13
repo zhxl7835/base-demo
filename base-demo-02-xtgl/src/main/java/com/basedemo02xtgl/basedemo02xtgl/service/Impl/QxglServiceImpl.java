@@ -3,6 +3,8 @@ package com.basedemo02xtgl.basedemo02xtgl.service.Impl;
 import com.basedemo02xtgl.basedemo02xtgl.dao.QxglMapper;
 import com.basedemo02xtgl.basedemo02xtgl.dao.YhglMapper;
 import com.basedemo02xtgl.basedemo02xtgl.service.QxglService;
+import com.basedemo02xtgl.common.basedemo02xtglcommon.dto.MenuData;
+import com.basedemo02xtgl.common.basedemo02xtglcommon.dto.MenuData1;
 import com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbPowers;
 import com.basedemo02xtgl.common.basedemo02xtglcommon.vo.TbUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,15 @@ public class QxglServiceImpl implements QxglService {
     @Override
     public List<TbPowers> getAccess(String username) {
         return qxglMapper.getAccess(username);
+    }
+
+    @Override
+    public Integer deleteAllByUsername(String username) {
+        return qxglMapper.deleteAllByUsername(username);
+    }
+
+    @Override
+    public Integer insertAllByMenuId(List<MenuData1> menuData1List) {
+        return qxglMapper.insertAllByMenuId(menuData1List);
     }
 }

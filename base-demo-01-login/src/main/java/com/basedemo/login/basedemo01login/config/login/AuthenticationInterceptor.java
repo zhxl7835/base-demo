@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.basedemo.login.basedemo01login.constants.ApiConstants;
 import com.basedemo.login.basedemo01login.service.LoginService;
 import com.basedemo01.login.common.basedemo01logincommon.vo.login.TbUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,57 +28,9 @@ import java.lang.reflect.Method;
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     private LoginService loginService;
-    /*@Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
-        // 如果不是映射到方法直接通过
-        if(!(object instanceof HandlerMethod)){
-            return true;
-        }
-        HandlerMethod handlerMethod=(HandlerMethod)object;
-        Method method=handlerMethod.getMethod();
-        //检查是否有passtoken注释，有则跳过认证
-        if (method.isAnnotationPresent(PassToken.class)) {
-            PassToken passToken = method.getAnnotation(PassToken.class);
-            if (passToken.required()) {
-                return true;
-            }
-        }
-        //检查有没有需要用户权限的注解
-        if (method.isAnnotationPresent(UserLoginToken.class)) {
-            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
-            if (userLoginToken.required()) {
-                // 执行认证
-                if (token == null) {
-                    throw new RuntimeException("无token，请重新登录");
-                }
-                // 获取 token 中的 user id
-                String userId;
-                try {
-                    userId = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException j) {
-                    throw new RuntimeException("401");
-                }
-                TbUser tbUser = testService.findUserById(userId);
-                if (tbUser == null) {
-                    throw new RuntimeException("用户不存在，请重新登录");
-                }
-                // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(tbUser.getPassword())).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
-                }
-                return true;
-            }
-        }
-        return true;
-    }*/
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
-        String password = httpServletRequest.getHeader("password");
         // 如果不是映射到方法直接通过
         if(!(object instanceof HandlerMethod)){
             return true;
@@ -113,7 +66,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             throw new RuntimeException("用户不存在，请重新登录");
         }
         // 验证 token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(password)).build();
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(ApiConstants.KEY)).build();
         try {
             DecodedJWT jwt = jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {

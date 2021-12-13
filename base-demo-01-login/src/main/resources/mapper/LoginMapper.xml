@@ -14,7 +14,7 @@
     <resultMap id="TbPowersResultMap" type="com.basedemo01.login.common.basedemo01logincommon.vo.login.TbPowers">
         <result column="userid" property="userid" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="menuid" property="menuid" jdbcType="INTEGER"/>
+        <result column="menuid" property="menuid" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="loginCheck" resultMap="TbUserVOResultMap" parameterType="java.lang.String">
@@ -43,11 +43,8 @@
         select userid   as userid,
                username as username,
                menuid   as menuid
-        from tb_powers a,
-             tb_menu b
-        where a.userid = #{userid,jdbcType=VARCHAR}
-          and a.username = #{username,jdbcType=VARCHAR}
-          and a.userid = b.id
-          and b.state = '0'
+        from tb_powers
+        where userid = #{userid,jdbcType=VARCHAR}
+          and username = #{username,jdbcType=VARCHAR}
     </select>
 </mapper>

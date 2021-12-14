@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.basedemo.security.basedemo03security.mapper.SysMenuMapper">
+<mapper namespace="com.basedemo.security.basedemo03security.dao.SysMenuMapper">
+    <resultMap id="SysMenuResultMap" type="com.basedemo.security.basedemo03security.entity.SysMenu">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="path" property="path" jdbcType="VARCHAR" />
+        <result column="perms" property="perms" jdbcType="VARCHAR" />
+        <result column="component" property="component" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+        <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+        <result column="created" property="created" jdbcType="TIMESTAMP" />
+        <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getMenus" resultMap="SysMenuResultMap">
+        select
+               a.perms as perms
+        from
+             sys_menu a, sys_role_menu b
+        where
+              a.id = b.menu_id
+          and b.role_id in ( #{role,jdbcType=VARCHAR} )
+    </select>
+
+
 
 </mapper>

@@ -1,23 +1,18 @@
 package com.basedemo.security.basedemo03security.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.basedemo.security.basedemo03security.common.dto.SysMenuDto;
 import com.basedemo.security.basedemo03security.entity.SysMenu;
 
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
- * @author 我的公众号：MarkerHub
- * @since 2021-04-05
+ * @Author zhengxiaolong
+ * @Date 2021-12-11
  */
-public interface SysMenuService extends IService<SysMenu> {
-
-	List<SysMenuDto> getCurrentUserNav();
-
-	List<SysMenu> tree();
-
+public interface SysMenuService {
+    /**
+     * @Author: zheng
+     * @Description: 根据角色列表获取用户菜单权限列表
+     * @Date: 2021-12-13 16:35
+     */
+    List<SysMenu> getMenus(String role);
 }

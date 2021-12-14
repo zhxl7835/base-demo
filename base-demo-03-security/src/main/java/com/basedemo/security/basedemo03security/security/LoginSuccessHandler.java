@@ -45,7 +45,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("token",jwt);
 		map.put("access",StringUtils.tokenizeToStringArray((String)redisUtil.get("GrantedAuthority:" + authentication.getName()), ","));
-
+		map.put("loginInfo",redisUtil.get("sysUser:" + authentication.getName()));
 
 		ResultData result = ResultData.succ(map);
 

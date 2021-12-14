@@ -1,4 +1,4 @@
-package com.basedemo.security.basedemo03security.entity;
+package com.basedemo02xtgl.basedemo02xtgl.entity;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.basedemo.security.basedemo03security.common.lang;
+package com.basedemo02xtgl.basedemo02xtgl.common;
 
 import lombok.Data;
 
@@ -40,6 +40,14 @@ public class ResultData implements Serializable {
 		r.setCode(code);
 		r.setMsg(msg);
 		r.setData(data);
+		return r;
+	}
+
+	public static ResultData fail(int code, String msg) {
+		ResultData r = new ResultData();
+		r.setCode(code);
+		r.setMsg(msg);
+		r.setData(null);
 		return r;
 	}
 

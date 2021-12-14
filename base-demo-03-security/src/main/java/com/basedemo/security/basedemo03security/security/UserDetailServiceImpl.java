@@ -21,11 +21,10 @@ import java.util.List;
 public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
-	SysUserService sysUserService;
+	private SysUserService sysUserService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
 		SysUser sysUser = sysUserService.getByUsername(username);
 		if (sysUser == null) {
 			throw new UsernameNotFoundException("用户名或密码不正确");
@@ -42,7 +41,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 		// 角色(ROLE_admin)、菜单操作权限 sys:user:list
 		String authority = sysUserService.getUserAuthorityInfo(userId);  // ROLE_admin,ROLE_normal,sys:user:list,....
-
 		return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
 	}
 }

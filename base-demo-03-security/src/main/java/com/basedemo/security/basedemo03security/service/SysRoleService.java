@@ -1,20 +1,18 @@
 package com.basedemo.security.basedemo03security.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.basedemo.security.basedemo03security.entity.SysRole;
 
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
- * @author 我的公众号：MarkerHub
- * @since 2021-04-05
+ * @Author zhengxiaolong
+ * @Date 2021-12-11
  */
-public interface SysRoleService extends IService<SysRole> {
-
-	List<SysRole> listRolesByUserId(Long userId);
-
+public interface SysRoleService{
+    /**
+     * @Author: zheng
+     * @Description: 根据用户ID获取用户角色
+     * @Date: 2021-12-13 16:35
+     */
+    List<SysRole> getRoles(Long userId);
 }

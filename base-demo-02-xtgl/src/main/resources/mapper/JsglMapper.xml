@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.basedemo.security.basedemo03security.dao.SysRoleMapper">
-    <resultMap id="SysRoleResultMap" type="com.basedemo.security.basedemo03security.entity.SysRole">
+<mapper namespace="com.basedemo02xtgl.basedemo02xtgl.dao.JsglMapper">
+    <resultMap id="SysRolesResultMap" type="com.basedemo02xtgl.basedemo02xtgl.entity.SysRole">
         <result column="id" property="id" jdbcType="INTEGER" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="code" property="code" jdbcType="VARCHAR" />
@@ -11,14 +11,15 @@
         <result column="state" property="state" jdbcType="INTEGER" />
     </resultMap>
 
-    <select id="getRoles" resultMap="SysRoleResultMap">
+    <select id="getRolesByUserId" resultMap="SysRolesResultMap">
         select
-                a.id as id,
-               a.code as code
+            a.*
         from
-             sys_role a,sys_user_role b
+            sys_role a,sys_user_role b
         where
-              a.id = b.role_id
+            a.id = b.role_id
           and b.user_id = #{userId,jdbcType=NUMERIC}
+
     </select>
+
 </mapper>

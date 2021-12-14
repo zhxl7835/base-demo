@@ -1,4 +1,4 @@
-package com.basedemo.security.basedemo03security.entity;
+package com.basedemo02xtgl.basedemo02xtgl.entity;
 
 
 import lombok.Data;
@@ -24,4 +24,6 @@ public class SysUser implements Serializable {
      private Date created;
      private Date updated;
      private Integer state;
+
+     private String roles;
 }

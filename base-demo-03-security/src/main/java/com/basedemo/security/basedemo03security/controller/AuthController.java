@@ -4,7 +4,7 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.MapUtil;
 import com.basedemo.security.basedemo03security.common.lang.Const;
 import com.basedemo.security.basedemo03security.common.lang.ResultData;
-import com.basedemo.security.basedemo03security.entity.SysUser;
+import com.basedemo.security.basedemo03security.service.SysUserService;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.Principal;
+import java.util.Random;
+
 /**
  * @Author: zheng
  * @Description: //获取验证码图片接口
@@ -31,16 +32,25 @@ public class AuthController extends BaseController{
 
 	@Autowired
 	Producer producer;
+	@Autowired
+	SysUserService sysUserService;
 
 	@GetMapping("captcha")
 	public ResultData captcha() throws IOException {
 
 		String key = UUID.randomUUID().toString();
-		String code = producer.createText();
-
-/*		// 为了测试
-		key = "aaaaa";
-		code = "11111";*/
+		//谷歌图片验证码
+		//String code = producer.createText();
+		//图片验证码换成5位数字
+		Random random = new Random();
+		int ran = random.nextInt(99999);
+		if(ran<10000){
+			ran = ran + 10000;
+		}
+		String code = ran+"";
+		// 为了测试
+		//key = "aaaaa";
+		code = "11111";
 
 		BufferedImage image = producer.createImage(code);
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -53,7 +63,7 @@ public class AuthController extends BaseController{
 
 		redisUtil.hset(Const.CAPTCHA_KEY, key, code, 120);
 
-		ResultData resultData = ResultData.succ(
+		ResultData resultData = ResultData.succ("",
 				MapUtil.builder()
 						.put("key", key)
 						.put("captchaImg", base64Img)
@@ -62,25 +72,4 @@ public class AuthController extends BaseController{
 		);
 		return resultData;
 	}
-
-	/**
-	 * 获取用户信息接口
-	 * @param principal
-	 * @return
-	 */
-	/*@GetMapping("/sys/userInfo")
-	public ResultData userInfo(Principal principal) {
-
-		SysUser sysUser = sysUserService.getByUsername(principal.getName());
-
-		return ResultData.succ(MapUtil.builder()
-				.put("id", sysUser.getId())
-				.put("username", sysUser.getUsername())
-				.put("avatar", sysUser.getAvatar())
-				.put("created", sysUser.getCreated())
-				.map()
-		);
-	}*/
-
-
 }

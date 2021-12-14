@@ -1,11 +1,11 @@
 package com.basedemo.security.basedemo03security.security;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.basedemo.security.basedemo03security.common.exception.CaptchaException;
 import com.basedemo.security.basedemo03security.common.lang.Const;
 import com.basedemo.security.basedemo03security.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -57,8 +57,8 @@ public class CaptchaFilter extends OncePerRequestFilter {
 		// 为了测试
 		/*key = "aaaaa";
 		code = "11111";*/
-
-		if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
+		//zhxl
+		if (StringUtils.isEmpty(code) || StringUtils.isEmpty(key)) {
 			throw new CaptchaException("验证码错误");
 		}
 

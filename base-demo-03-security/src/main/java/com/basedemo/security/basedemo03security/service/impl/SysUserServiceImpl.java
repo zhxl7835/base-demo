@@ -1,11 +1,9 @@
 package com.basedemo.security.basedemo03security.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.basedemo.security.basedemo03security.dao.SysUserMapper;
 import com.basedemo.security.basedemo03security.entity.SysMenu;
 import com.basedemo.security.basedemo03security.entity.SysRole;
 import com.basedemo.security.basedemo03security.entity.SysUser;
-import com.basedemo.security.basedemo03security.mapper.SysUserMapper;
 import com.basedemo.security.basedemo03security.service.SysMenuService;
 import com.basedemo.security.basedemo03security.service.SysRoleService;
 import com.basedemo.security.basedemo03security.service.SysUserService;
@@ -17,93 +15,64 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author zhengxiaolong
- * @since 2021-12-11
+ * @Author zhengxiaolong
+ * @Date 2021-12-11
  */
 @Service
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+public class SysUserServiceImpl  implements SysUserService {
 
-	@Autowired
-	private SysRoleService sysRoleService;
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
-	@Autowired
-	private SysUserMapper sysUserMapper;
+    @Autowired    private SysRoleService sysRoleService;
 
-	@Autowired
-	private SysMenuService sysMenuService;
+    @Autowired
+    private SysMenuService sysMenuService;
 
-	@Autowired
-	private RedisUtil redisUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
-	@Override
-	public SysUser getByUsername(String username) {
-		return getOne(new QueryWrapper<SysUser>().eq("username", username));
-	}
+    @Override
+    public SysUser getByUsername(String username) {
+        // 获取用户信息
+        SysUser sysUser = sysUserMapper.getByUsername(username);
+        if (!redisUtil.hasKey("sysUser:" + username)) {
+            redisUtil.set("sysUser:" + username, sysUser, 60 * 60);
+        }
+        return sysUser;
+    }
 
-	@Override
-	public String getUserAuthorityInfo(Long userId) {
+    @Override
+    public String getUserAuthorityInfo(Long userId) {
+        // 获取用户信息
+        SysUser sysUser = sysUserMapper.selectById(userId);
 
-		SysUser sysUser = sysUserMapper.selectById(userId);
+        //获取角色和权限
+        String authority = "";//权限
+        String code = "";//存入Redis角色
+        String roleIds = "";//数据库查询角色
+        if (redisUtil.hasKey("GrantedAuthority:" + sysUser.getUsername())) {
+            code = (String) redisUtil.get("Roles:" + sysUser.getUsername());
+            authority = (String) redisUtil.get("GrantedAuthority:" + sysUser.getUsername());
 
-		//  ROLE_admin,ROLE_normal,sys:user:list,....
-		String authority = "";
+        } else {
+            // 获取角色编码
+            List<SysRole> roles = sysRoleService.getRoles(sysUser.getId());
+            if (roles.size() > 0) {
+                code = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
+                roleIds = roles.stream().map(r -> r.getId().toString()).collect(Collectors.joining(","));
+            }
 
-		if (redisUtil.hasKey("GrantedAuthority:" + sysUser.getUsername())) {
-			authority = (String) redisUtil.get("GrantedAuthority:" + sysUser.getUsername());
+            // 获取权限编码
+            List<SysMenu> menus = sysMenuService.getMenus(roleIds);
+            if (menus.size() > 0) {
+                authority = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
+            }
 
-		} else {
-			// 获取角色编码
-			List<SysRole> roles = sysRoleService.list(new QueryWrapper<SysRole>()
-					.inSql("id", "select role_id from sys_user_role where user_id = " + userId));
+            redisUtil.set("Roles:" + sysUser.getUsername(), code, 60 * 60);
+            redisUtil.set("GrantedAuthority:" + sysUser.getUsername(), authority, 60 * 60);
+        }
 
-			if (roles.size() > 0) {
-				String roleCodes = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
-				authority = roleCodes.concat(",");
-			}
-
-			// 获取菜单操作编码
-			List<Long> menuIds = sysUserMapper.getNavMenuIds(userId);
-			if (menuIds.size() > 0) {
-
-				List<SysMenu> menus = sysMenuService.listByIds(menuIds);
-				String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
-
-				authority = authority.concat(menuPerms);
-			}
-
-			redisUtil.set("GrantedAuthority:" + sysUser.getUsername(), authority, 60 * 60);
-		}
-
-		return authority;
-	}
-
-	@Override
-	public void clearUserAuthorityInfo(String username) {
-		redisUtil.del("GrantedAuthority:" + username);
-	}
-
-	@Override
-	public void clearUserAuthorityInfoByRoleId(Long roleId) {
-
-		List<SysUser> sysUsers = this.list(new QueryWrapper<SysUser>()
-				.inSql("id", "select user_id from sys_user_role where role_id = " + roleId));
-
-		sysUsers.forEach(u -> {
-			this.clearUserAuthorityInfo(u.getUsername());
-		});
-
-	}
-
-	@Override
-	public void clearUserAuthorityInfoByMenuId(Long menuId) {
-		List<SysUser> sysUsers = sysUserMapper.listByMenuId(menuId);
-
-		sysUsers.forEach(u -> {
-			this.clearUserAuthorityInfo(u.getUsername());
-		});
-	}
+        return authority;
+    }
 }

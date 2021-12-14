@@ -3,6 +3,9 @@ package com.basedemo.security.basedemo03security.security;
 import cn.hutool.json.JSONUtil;
 import com.basedemo.security.basedemo03security.common.lang.ResultData;
 import com.basedemo.security.basedemo03security.utils.JwtUtils;
+import com.basedemo.security.basedemo03security.utils.RedisUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -26,12 +29,24 @@ public class JwtLogoutSuccessHandler implements LogoutSuccessHandler {
 	@Autowired
 	JwtUtils jwtUtils;
 
+	@Autowired
+	RedisUtil redisUtil;
+
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
 		if (authentication != null) {
 			new SecurityContextLogoutHandler().logout(request, response, authentication);
 		}
+		// 根据token获取用户username
+		String jwt = request.getHeader(jwtUtils.getHeader());
+		Claims claim = jwtUtils.getClaimByToken(jwt);
+		if (claim == null) {
+			throw new JwtException("token 异常");
+		}
+		String username = claim.getSubject();
+		redisUtil.del("GrantedAuthority:"+username,"sysUser:"+username,"Roles:"+username);
+
 
 		response.setContentType("application/json;charset=UTF-8");
 		ServletOutputStream outputStream = response.getOutputStream();

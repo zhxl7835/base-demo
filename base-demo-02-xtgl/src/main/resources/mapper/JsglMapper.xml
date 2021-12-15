@@ -11,6 +11,12 @@
         <result column="state" property="state" jdbcType="INTEGER" />
     </resultMap>
 
+    <resultMap id="SysRoleMenuResultMap" type="com.basedemo02xtgl.basedemo02xtgl.entity.SysRoleMenu">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+    </resultMap>
+
     <select id="getRolesByUserId" resultMap="SysRolesResultMap">
         select
             a.*
@@ -22,4 +28,50 @@
 
     </select>
 
+    <select id="queryRoles" resultMap="SysRolesResultMap">
+        select *
+        from sys_role
+        <if test="name !='' and name != null">
+            where name = #{name,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryRoleMenus" resultMap="SysRoleMenuResultMap">
+        select *
+        from sys_role_menu
+        <if test="roleId !='' and roleId != null">
+            where role_id = #{roleId,jdbcType=NUMERIC}
+        </if>
+    </select>
+
+    <insert id="insertRoles" parameterType="com.basedemo02xtgl.basedemo02xtgl.entity.SysRole">
+        INSERT INTO sys_role(name, code, remark, created, state)
+        VALUES (#{sysRole.name,jdbcType=VARCHAR}, #{sysRole.code,jdbcType=VARCHAR},
+                #{sysRole.remark,jdbcType=VARCHAR}, now(),#{sysRole.state,jdbcType=NUMERIC})
+    </insert>
+
+    <update id="updateRoles" parameterType="com.basedemo02xtgl.basedemo02xtgl.entity.SysRole">
+        update sys_role
+        set name = #{sysRole.name,jdbcType=VARCHAR},
+            code   = #{sysRole.code,jdbcType=VARCHAR},
+            remark    = #{sysRole.remark,jdbcType=VARCHAR},
+            updated  = now(),
+            state    = #{sysRole.state,jdbcType=NUMERIC}
+        where id = #{sysRole.id,jdbcType=NUMERIC}
+    </update>
+
+    <delete id="deleteRoles">
+        delete
+        from sys_role
+        where id = #{id,jdbcType=NUMERIC}
+    </delete>
+
+    <delete id="deleteAllRoles">
+        delete
+        from sys_role
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id,jdbcType=NUMERIC}
+        </foreach>
+    </delete>
 </mapper>

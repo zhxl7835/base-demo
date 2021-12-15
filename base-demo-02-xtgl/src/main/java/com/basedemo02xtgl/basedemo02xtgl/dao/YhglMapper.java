@@ -1,6 +1,7 @@
 package com.basedemo02xtgl.basedemo02xtgl.dao;
 
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUser;
+import com.basedemo02xtgl.basedemo02xtgl.entity.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,8 @@ public interface YhglMapper {
     Integer insertUsers(@Param("sysUser") SysUser sysUser);
 
     Integer updateUsers(@Param("sysUser") SysUser sysUser);
+
+    Integer deleteUserRoles(@Param("UserId") Long UserId);
+
+    Integer insertUserRoles(@Param("sysUserRoleList") List<SysUserRole> sysUserRoleList);
 }

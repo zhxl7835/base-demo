@@ -1,11 +1,14 @@
 package com.basedemo02xtgl.basedemo02xtgl.service.Impl;
 
+import com.basedemo02xtgl.basedemo02xtgl.common.vo.UserRoles;
 import com.basedemo02xtgl.basedemo02xtgl.dao.YhglMapper;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUser;
+import com.basedemo02xtgl.basedemo02xtgl.entity.SysUserRole;
 import com.basedemo02xtgl.basedemo02xtgl.service.YhglService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,5 +47,19 @@ public class YhglServiceImpl implements YhglService {
     @Override
     public Integer updateUsers(SysUser sysUser) {
         return yhglMapper.updateUsers(sysUser);
+    }
+
+    @Override
+    public void updateUserRoles(UserRoles userRoles) {
+        Integer i = yhglMapper.deleteUserRoles(userRoles.getUserId());
+        //menuData对象数据 转换为 menuData1 的List数据
+        List<SysUserRole> sysUserRoleList = new ArrayList<>();
+        for (int j = 0; j < userRoles.getRoleId().length; j++) {
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setUserId(userRoles.getUserId());
+            sysUserRole.setRoleId(userRoles.getRoleId()[j]);
+            sysUserRoleList.add(sysUserRole);
+        }
+        Integer j = yhglMapper.insertUserRoles(sysUserRoleList);
     }
 }

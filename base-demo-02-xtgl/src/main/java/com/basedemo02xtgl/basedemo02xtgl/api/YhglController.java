@@ -1,6 +1,7 @@
 package com.basedemo02xtgl.basedemo02xtgl.api;
 
 import com.basedemo02xtgl.basedemo02xtgl.common.ResultData;
+import com.basedemo02xtgl.basedemo02xtgl.common.vo.UserRoles;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysRole;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUser;
 import com.basedemo02xtgl.basedemo02xtgl.service.JsglService;
@@ -79,6 +80,17 @@ public class YhglController {
             return ResultData.succ("修改用户信息成功",null);
         } catch (Exception e) {
             return ResultData.fail("修改用户信息失败");
+        }
+    }
+
+    @PostMapping("/updateUserRoles")
+    public ResultData updateUserRoles(@RequestBody UserRoles userRoles) {
+        System.out.println(userRoles);
+        try {
+            yhglService.updateUserRoles(userRoles);
+            return ResultData.succ("修改用户角色成功",null);
+        } catch (Exception e) {
+            return ResultData.fail("修改用户角色失败");
         }
     }
 

@@ -3,7 +3,6 @@ package com.basedemo02xtgl.basedemo02xtgl.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Author zhengxiaolong
@@ -22,8 +21,8 @@ public class SysMenu implements Serializable {
     private Integer type;
     private String icon;
     private Integer orderNum;
-    private Date created;
-    private Date updated;
+    private String created;
+    private String updated;
     private Integer state;
 
 }

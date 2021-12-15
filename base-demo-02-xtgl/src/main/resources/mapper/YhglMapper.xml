@@ -15,6 +15,14 @@
         <result column="updated" property="updated" jdbcType="VARCHAR"/>
         <result column="state" property="state" jdbcType="INTEGER"/>
     </resultMap>
+
+    <resultMap id="SysUserRoleResultMap" type="com.basedemo02xtgl.basedemo02xtgl.entity.SysUserRole">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    </resultMap>
+
+
     <sql id="field">
         id,username,password,avatar,email,xm,sfzh,phone,date_format(last_login, '%Y-%c-%d %h:%i:%s' ) as lastLogin,date_format(created, '%Y-%c-%d %h:%i:%s' ) as created,date_format(updated, '%Y-%c-%d %h:%i:%s' ) as updated,state
     </sql>
@@ -66,5 +74,21 @@
         where id = #{sysUser.id,jdbcType=NUMERIC}
     </update>
 
+    <delete id="deleteUserRoles">
+        delete
+        from sys_user_role
+        where user_id = #{UserId,jdbcType=NUMERIC}
+    </delete>
+
+    <insert id="insertUserRoles">
+        INSERT INTO sys_user_role(user_id,role_id)
+        VALUES
+        <foreach collection="sysUserRoleList" item="sysUserRole" separator=",">
+            (
+            #{sysUserRole.userId,jdbcType=NUMERIC},
+            #{sysUserRole.roleId,jdbcType=NUMERIC}
+            )
+        </foreach>
+    </insert>
 
 </mapper>

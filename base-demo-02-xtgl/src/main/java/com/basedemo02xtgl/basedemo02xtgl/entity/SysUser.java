@@ -4,7 +4,6 @@ package com.basedemo02xtgl.basedemo02xtgl.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Author zhengxiaolong
@@ -20,9 +19,9 @@ public class SysUser implements Serializable {
      private String xm;
      private String sfzh;
      private String phone;
-     private Date lastLogin;
-     private Date created;
-     private Date updated;
+     private String lastLogin;
+     private String created;
+     private String updated;
      private Integer state;
 
      private String roles;

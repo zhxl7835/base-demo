@@ -38,7 +38,6 @@ public class YhglController {
                 String roles = list2.stream().map(SysRole::getName).collect(Collectors.joining(","));
                 list1.get(i).setRoles(roles);
             }
-            System.out.println(list1);
             return ResultData.succ("查询用户信息成功",list1);
         } catch (Exception e) {
             return ResultData.fail("获取用户信息时报错");
@@ -48,9 +47,18 @@ public class YhglController {
     public ResultData deleteUsers(@RequestParam Long id) {
         try {
             Integer i = yhglService.deleteUsers(id);
-            return ResultData.succ("删除用户信息成功",null);
+            return ResultData.succ("删除用户成功",null);
         } catch (Exception e) {
-            return ResultData.fail("删除用户信息失败");
+            return ResultData.fail("删除用户失败");
+        }
+    }
+    @PostMapping("/deleteAllUsers")
+    public ResultData deleteAllUsers(@RequestParam List ids) {
+        try {
+            Integer i = yhglService.deleteAllUsers(ids);
+            return ResultData.succ("批量删除用户成功",null);
+        } catch (Exception e) {
+            return ResultData.fail("批量删除用户失败");
         }
     }
 
@@ -58,9 +66,19 @@ public class YhglController {
     public ResultData insertUsers(@RequestBody SysUser sysUser) {
         try {
             Integer i = yhglService.insertUsers(sysUser);
-            return ResultData.succ("新增用户信息成功",null);
+            return ResultData.succ("新增用户成功",null);
         } catch (Exception e) {
-            return ResultData.fail("新增用户信息失败");
+            return ResultData.fail("新增用户失败");
+        }
+    }
+
+    @PostMapping("/updateUsers")
+    public ResultData updateUsers(@RequestBody SysUser sysUser) {
+        try {
+            Integer i = yhglService.updateUsers(sysUser);
+            return ResultData.succ("修改用户信息成功",null);
+        } catch (Exception e) {
+            return ResultData.fail("修改用户信息失败");
         }
     }
 

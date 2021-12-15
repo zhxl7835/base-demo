@@ -12,7 +12,9 @@ public interface YhglMapper {
 
     Integer deleteUsers(@Param("id") Long id);
 
+    Integer deleteAllUsers(@Param("ids") List ids);
+
     Integer insertUsers(@Param("sysUser") SysUser sysUser);
 
-
+    Integer updateUsers(@Param("sysUser") SysUser sysUser);
 }

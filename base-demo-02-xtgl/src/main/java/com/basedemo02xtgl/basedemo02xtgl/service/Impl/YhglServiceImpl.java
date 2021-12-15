@@ -17,8 +17,10 @@ import java.util.List;
  */
 @Service
 public class YhglServiceImpl implements YhglService {
+
     @Autowired
     private YhglMapper yhglMapper;
+
     @Override
     public List<SysUser> queryUsers(String username) {
         return yhglMapper.queryUsers(username);
@@ -30,7 +32,17 @@ public class YhglServiceImpl implements YhglService {
     }
 
     @Override
+    public Integer deleteAllUsers(List ids) {
+        return yhglMapper.deleteAllUsers(ids);
+    }
+
+    @Override
     public Integer insertUsers(SysUser sysUser) {
         return yhglMapper.insertUsers(sysUser);
+    }
+
+    @Override
+    public Integer updateUsers(SysUser sysUser) {
+        return yhglMapper.updateUsers(sysUser);
     }
 }

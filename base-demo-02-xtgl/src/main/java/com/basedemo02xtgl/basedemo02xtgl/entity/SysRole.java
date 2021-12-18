@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class SysRole implements Serializable {
 
-    private Long id;
+    private Integer id;
     private String name;
     private String code;
     private String remark;

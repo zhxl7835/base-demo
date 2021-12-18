@@ -1,7 +1,7 @@
 package com.basedemo02xtgl.basedemo02xtgl.api;
 
 import com.basedemo02xtgl.basedemo02xtgl.common.ResultData;
-import com.basedemo02xtgl.basedemo02xtgl.common.vo.UserRoles;
+import com.basedemo02xtgl.basedemo02xtgl.common.dto.UserRoles;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysRole;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUser;
 import com.basedemo02xtgl.basedemo02xtgl.service.JsglService;
@@ -45,7 +45,7 @@ public class YhglController {
         }
     }
     @PostMapping("/deleteUsers")
-    public ResultData deleteUsers(@RequestParam Long id) {
+    public ResultData deleteUsers(@RequestParam Integer id) {
         try {
             Integer i = yhglService.deleteUsers(id);
             return ResultData.succ("删除用户成功",null);

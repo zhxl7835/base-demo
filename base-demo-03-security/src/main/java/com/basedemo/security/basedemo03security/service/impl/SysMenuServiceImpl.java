@@ -18,9 +18,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Autowired
     private SysMenuMapper sysMenuMapper;
     @Override
-    public List<SysMenu> getMenus(String role) {
+    public List<SysMenu> getMenus(List roles) {
 
-        return sysMenuMapper.getMenus(role);
+        return sysMenuMapper.getMenus(roles);
 
     }
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class SysUser implements Serializable {
-     private Long id;
+     private Integer id;
      private String username;
      private String password;
      private String avatar;

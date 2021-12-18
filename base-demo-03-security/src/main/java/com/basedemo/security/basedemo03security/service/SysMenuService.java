@@ -14,5 +14,5 @@ public interface SysMenuService {
      * @Description: 根据角色列表获取用户菜单权限列表
      * @Date: 2021-12-13 16:35
      */
-    List<SysMenu> getMenus(String role);
+    List<SysMenu> getMenus(List roles);
 }

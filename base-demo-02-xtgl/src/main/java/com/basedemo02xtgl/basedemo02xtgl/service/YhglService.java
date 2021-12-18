@@ -1,6 +1,6 @@
 package com.basedemo02xtgl.basedemo02xtgl.service;
 
-import com.basedemo02xtgl.basedemo02xtgl.common.vo.UserRoles;
+import com.basedemo02xtgl.basedemo02xtgl.common.dto.UserRoles;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUser;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface YhglService {
     List<SysUser> queryUsers(String username);
 
     // 根据userId删除用户信息
-    Integer deleteUsers(Long id);
+    Integer deleteUsers(Integer id);
 
     // 根据userId批量删除用户信息
     Integer deleteAllUsers(List  ids);

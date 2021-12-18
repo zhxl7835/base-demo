@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.basedemo02xtgl.basedemo02xtgl.dao.CdglMapper">
+    <resultMap id="SysMenuResultMap" type="com.basedemo02xtgl.basedemo02xtgl.entity.SysMenu">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="perms" property="perms" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="created" property="created" jdbcType="VARCHAR"/>
+        <result column="updated" property="updated" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="queryMenus" resultMap="SysMenuResultMap">
+        select *
+        from sys_menu
+    </select>
+
+    <select id="getParentIdByName" resultType="Integer">
+        select parent_id
+        from sys_menu
+        where name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertMenus" parameterType="com.basedemo02xtgl.basedemo02xtgl.entity.SysMenu">
+        INSERT INTO sys_menu(parent_id, name, perms, type, created, updated, state)
+        VALUES (#{sysMenu.parentId,jdbcType=NUMERIC}, #{sysMenu.name,jdbcType=VARCHAR},
+                #{sysMenu.perms,jdbcType=VARCHAR}, #{sysMenu.type,jdbcType=NUMERIC},
+                now(),
+                '', #{sysMenu.state,jdbcType=NUMERIC})
+    </insert>
+
+    <update id="updateMenus" parameterType="com.basedemo02xtgl.basedemo02xtgl.entity.SysMenu">
+        update sys_menu
+        set parent_id = #{sysMenu.parentId,jdbcType=NUMERIC},
+            name      = #{sysMenu.name,jdbcType=VARCHAR},
+            perms     = #{sysMenu.perms,jdbcType=VARCHAR},
+            type      = #{sysMenu.type,jdbcType=NUMERIC},
+            updated   = now(),
+            state     = #{sysMenu.state,jdbcType=NUMERIC}
+        where id = #{sysMenu.id,jdbcType=NUMERIC}
+    </update>
+</mapper>

@@ -1,4 +1,4 @@
-package com.basedemo02xtgl.basedemo02xtgl.common.vo;
+package com.basedemo02xtgl.basedemo02xtgl.common.dto;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 public class UserRoles implements Serializable {
-    private Long userId;
-    private Long[] roleId;
+    private Integer userId;
+    private Integer[] roleId;
     private String username;
 }

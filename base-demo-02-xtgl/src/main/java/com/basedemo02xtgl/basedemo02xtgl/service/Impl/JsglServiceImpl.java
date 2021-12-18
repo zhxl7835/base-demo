@@ -1,12 +1,14 @@
 package com.basedemo02xtgl.basedemo02xtgl.service.Impl;
 
+import com.basedemo02xtgl.basedemo02xtgl.common.dto.RoleMenus;
 import com.basedemo02xtgl.basedemo02xtgl.dao.JsglMapper;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysRole;
-import com.basedemo02xtgl.basedemo02xtgl.entity.SysUserRole;
+import com.basedemo02xtgl.basedemo02xtgl.entity.SysRoleMenu;
 import com.basedemo02xtgl.basedemo02xtgl.service.JsglService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public class JsglServiceImpl implements JsglService {
     @Autowired
     private JsglMapper jsglMapper;
     @Override
-    public List<SysRole> getRolesByUserId(Long userId) {
+    public List<SysRole> getRolesByUserId(Integer userId) {
 
         return jsglMapper.getRolesByUserId(userId);
     }
@@ -42,7 +44,7 @@ public class JsglServiceImpl implements JsglService {
     }
 
     @Override
-    public Integer deleteRoles(Long id) {
+    public Integer deleteRoles(Integer id) {
         return jsglMapper.deleteRoles(id);
     }
 
@@ -52,7 +54,24 @@ public class JsglServiceImpl implements JsglService {
     }
 
     @Override
-    public List<SysUserRole> queryRoleMenus(Long roleId) {
+    public List<SysRoleMenu> queryRoleMenus(Integer roleId) {
+
         return jsglMapper.queryRoleMenus(roleId);
+    }
+
+    @Override
+    public void updateRoleMenus(RoleMenus roleMenus) {
+        //roleMenus对象数据 转换为 RoleMenus 的List数据
+        List<SysRoleMenu> sysRoleMenuList = new ArrayList<>();
+        for (int j = 0; j < roleMenus.getMenuId().length; j++) {
+            SysRoleMenu sysRoleMenu = new SysRoleMenu();
+            sysRoleMenu.setRoleId(roleMenus.getRoleId());
+            sysRoleMenu.setMenuId(roleMenus.getMenuId()[j]);
+            sysRoleMenuList.add(sysRoleMenu);
+        }
+        //根据roleID删除角色菜单列表
+        Integer i = jsglMapper.deleteRoleMenus(roleMenus.getRoleId());
+        //新增角色菜单列表
+        Integer j = jsglMapper.insertRoleMenus(sysRoleMenuList);
     }
 }

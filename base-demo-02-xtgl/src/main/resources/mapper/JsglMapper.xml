@@ -74,4 +74,21 @@
             #{id,jdbcType=NUMERIC}
         </foreach>
     </delete>
+
+    <delete id="deleteRoleMenus">
+        delete
+        from sys_role_menu
+        where role_id = #{roleId,jdbcType=NUMERIC}
+    </delete>
+
+    <insert id="insertRoleMenus">
+        INSERT INTO sys_role_menu(role_id,menu_id)
+        VALUES
+        <foreach collection="lists" item="list" separator=",">
+            (
+            #{list.roleId,jdbcType=NUMERIC},
+            #{list.menuId,jdbcType=NUMERIC}
+            )
+        </foreach>
+    </insert>
 </mapper>

@@ -11,7 +11,7 @@ import java.util.List;
 public interface YhglMapper {
     List<SysUser> queryUsers(@Param("username") String username);
 
-    Integer deleteUsers(@Param("id") Long id);
+    Integer deleteUsers(@Param("id") Integer id);
 
     Integer deleteAllUsers(@Param("ids") List ids);
 
@@ -19,7 +19,7 @@ public interface YhglMapper {
 
     Integer updateUsers(@Param("sysUser") SysUser sysUser);
 
-    Integer deleteUserRoles(@Param("UserId") Long UserId);
+    Integer deleteUserRoles(@Param("UserId") Integer UserId);
 
     Integer insertUserRoles(@Param("sysUserRoleList") List<SysUserRole> sysUserRoleList);
 }

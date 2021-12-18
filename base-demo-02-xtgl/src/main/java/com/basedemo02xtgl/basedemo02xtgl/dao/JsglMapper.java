@@ -1,7 +1,7 @@
 package com.basedemo02xtgl.basedemo02xtgl.dao;
 
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysRole;
-import com.basedemo02xtgl.basedemo02xtgl.entity.SysUserRole;
+import com.basedemo02xtgl.basedemo02xtgl.entity.SysRoleMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface JsglMapper {
 
-    List<SysRole> getRolesByUserId(@Param("userId") Long userId);
+    List<SysRole> getRolesByUserId(@Param("userId") Integer userId);
 
     List<SysRole> queryRoles(@Param("name") String name);
 
@@ -18,9 +18,13 @@ public interface JsglMapper {
 
     Integer updateRoles(@Param("sysRole")SysRole sysRole);
 
-    Integer deleteRoles(@Param("id")Long id);
+    Integer deleteRoles(@Param("id")Integer id);
 
     Integer deleteAllRoles(@Param("ids")List ids);
 
-    List<SysUserRole> queryRoleMenus(@Param("roleId")Long roleId);
+    List<SysRoleMenu> queryRoleMenus(@Param("roleId")Integer roleId);
+
+    Integer deleteRoleMenus(@Param("roleId")Integer roleId);
+
+    Integer insertRoleMenus(@Param("lists") List<SysRoleMenu> lists);
 }

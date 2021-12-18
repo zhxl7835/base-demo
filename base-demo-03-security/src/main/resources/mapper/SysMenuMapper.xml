@@ -21,9 +21,10 @@
                a.perms as perms
         from
              sys_menu a, sys_role_menu b
-        where
-              a.id = b.menu_id
-          and b.role_id in ( #{role,jdbcType=VARCHAR} )
+        where a.id = b.menu_id and b.role_id in
+        <foreach collection="roles" item="role" open="(" close=")" separator=",">
+            #{role,jdbcType=NUMERIC}
+        </foreach>
     </select>
 
 

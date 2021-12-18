@@ -13,6 +13,6 @@ import java.util.List;
 @Mapper
 public interface SysMenuMapper {
 
-    List<SysMenu> getMenus(@Param("role") String role);
+    List<SysMenu> getMenus(@Param("roles") List roles);
 
 }

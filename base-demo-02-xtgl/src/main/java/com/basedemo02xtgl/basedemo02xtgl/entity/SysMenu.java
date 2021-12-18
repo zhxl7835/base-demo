@@ -3,6 +3,8 @@ package com.basedemo02xtgl.basedemo02xtgl.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author zhengxiaolong
@@ -12,17 +14,17 @@ import java.io.Serializable;
 public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Long id;
-    private Long parentId;
+    private Integer id;
+    private Integer parentId;
     private String name;
-    private String path;
     private String perms;
-    private String component;
     private Integer type;
-    private String icon;
-    private Integer orderNum;
     private String created;
     private String updated;
     private Integer state;
+
+    private Boolean checked = false;
+
+    private List<SysMenu> children = new ArrayList<>();
 
 }

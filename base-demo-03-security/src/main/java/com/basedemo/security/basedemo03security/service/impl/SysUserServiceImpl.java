@@ -11,6 +11,7 @@ import com.basedemo.security.basedemo03security.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ public class SysUserServiceImpl  implements SysUserService {
         //获取角色和权限
         String authority = "";//权限
         String code = "";//存入Redis角色
-        String roleIds = "";//数据库查询角色
+        List roleIds = new ArrayList();//数据库查询角色
         if (redisUtil.hasKey("GrantedAuthority:" + sysUser.getUsername())) {
             code = (String) redisUtil.get("Roles:" + sysUser.getUsername());
             authority = (String) redisUtil.get("GrantedAuthority:" + sysUser.getUsername());
@@ -60,7 +61,7 @@ public class SysUserServiceImpl  implements SysUserService {
             List<SysRole> roles = sysRoleService.getRoles(sysUser.getId());
             if (roles.size() > 0) {
                 code = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
-                roleIds = roles.stream().map(r -> r.getId().toString()).collect(Collectors.joining(","));
+                roleIds = roles.stream().map(r -> r.getId().toString()).collect(Collectors.toList());
             }
 
             // 获取权限编码

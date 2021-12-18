@@ -1,6 +1,6 @@
 package com.basedemo02xtgl.basedemo02xtgl.service.Impl;
 
-import com.basedemo02xtgl.basedemo02xtgl.common.vo.UserRoles;
+import com.basedemo02xtgl.basedemo02xtgl.common.dto.UserRoles;
 import com.basedemo02xtgl.basedemo02xtgl.dao.YhglMapper;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUser;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysUserRole;
@@ -30,7 +30,7 @@ public class YhglServiceImpl implements YhglService {
     }
 
     @Override
-    public Integer deleteUsers(Long id) {
+    public Integer deleteUsers(Integer id) {
         return yhglMapper.deleteUsers(id);
     }
 

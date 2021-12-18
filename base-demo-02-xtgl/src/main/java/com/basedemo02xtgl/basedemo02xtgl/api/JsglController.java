@@ -1,9 +1,10 @@
 package com.basedemo02xtgl.basedemo02xtgl.api;
 
 import com.basedemo02xtgl.basedemo02xtgl.common.ResultData;
+import com.basedemo02xtgl.basedemo02xtgl.common.dto.RoleMenus;
 import com.basedemo02xtgl.basedemo02xtgl.entity.SysRole;
 import com.basedemo02xtgl.basedemo02xtgl.service.JsglService;
-import com.basedemo02xtgl.basedemo02xtgl.service.QxglService;
+import com.basedemo02xtgl.basedemo02xtgl.service.CdglService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class JsglController {
     private JsglService jsglService;
 
     @Autowired
-    private QxglService qxglService;
+    private CdglService cdglService;
 
     @PostMapping("/queryRoles")
     public ResultData queryRoles(@RequestParam String name) {
@@ -59,7 +60,7 @@ public class JsglController {
     }
 
     @PostMapping("/deleteRoles")
-    public ResultData deleteRoles(@RequestParam Long id) {
+    public ResultData deleteRoles(@RequestParam Integer id) {
         try {
             Integer i = jsglService.deleteRoles(id);
             return ResultData.succ("删除角色成功",null);
@@ -78,16 +79,27 @@ public class JsglController {
     }
 
     @PostMapping("/queryMenus")
-    public ResultData queryMenus(@RequestParam long roleId) {
+    public ResultData queryMenus(@RequestParam Integer roleId) {
         try {
             Map map = new HashMap<String,Object>();
-            List list1 = qxglService.queryMenus();//获取全部菜单列表
-            List list2 = jsglService.queryRoleMenus(roleId);//根据角色ID获取当前角色菜单列表
+            List list1 = cdglService.queryMenus(roleId);//获取全部菜单列表
+            //List list2 = jsglService.queryRoleMenus(roleId);//根据角色ID获取当前角色菜单列表
+
             map.put("list1",list1);
-            map.put("list2",list2);
+            //map.put("list2",list2);
             return ResultData.succ(map);
         } catch (Exception e) {
             return ResultData.fail("获取菜单列表出错");
+        }
+    }
+    @PostMapping("/updateRoleMenus")
+    public ResultData updateRoleMenus(@RequestBody RoleMenus roleMenus) {
+        try {
+            System.out.println(roleMenus);
+            jsglService.updateRoleMenus(roleMenus);
+            return ResultData.succ("修改角色菜单权限c成功");
+        } catch (Exception e) {
+            return ResultData.fail("修改角色菜单权限失败");
         }
     }
 
